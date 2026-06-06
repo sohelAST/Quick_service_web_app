@@ -295,8 +295,18 @@ def chat_page(request: Request, bid: int):
     b = conn.execute("SELECT * FROM bookings WHERE id=?", (bid,)).fetchone()
     if not b or (u["id"] != b["user_id"] and u["id"] != b["worker_id"]):
         conn.close(); return RedirectResponse("/")
-    msgs = conn.execute("SELECT * FROM messages WHERE booking_id=? ORDER BY id", (bid,)).fetchall()
+    rows = conn.execute("SELECT * FROM messages WHERE booking_id=? ORDER BY id", (bid,)).fetchall()
     conn.close()
+    # Normalize each message into a plain dict with a safe HH:MM time string.
+    # ts is a string on SQLite but a datetime on PostgreSQL — handle both.
+    msgs = []
+    for r in rows:
+        ts = r["ts"]
+        if hasattr(ts, "strftime"):          # datetime (Postgres)
+            t = ts.strftime("%H:%M")
+        else:                                  # string (SQLite) e.g. '2026-06-07 12:30:00'
+            t = str(ts)[11:16]
+        msgs.append({"sender_id": r["sender_id"], "message": r["message"], "time": t})
     other = b["worker"] if u["role"] == "customer" else "Customer"
     return templates.TemplateResponse(request, "chat.html", {
         "user": u, "booking": b, "messages": msgs, "other": other})
