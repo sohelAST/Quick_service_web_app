@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="topbar"><div class="hello"><small>Your activity</small><h1>My Bookings 📋</h1></div></div>
+{% if bookings %}
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px;">
+  {% for b in bookings %}
+  <div class="card card-hover">
+    <div style="display:flex;justify-content:space-between;align-items:start;">
+      <div>
+        <h4 style="font-size:17px;font-weight:800;">{{ b["service"] }}</h4>
+        <p style="color:var(--text-light);font-size:13px;margin-top:6px;font-weight:500;"><i class="ti ti-user" style="font-size:15px;vertical-align:-2px;"></i> {{ b["worker"] }}</p>
+        <p style="color:var(--text-light);font-size:13px;font-weight:500;"><i class="ti ti-map-pin" style="font-size:15px;vertical-align:-2px;"></i> {{ b["address"] }}</p>
+        <p style="color:var(--text-light);font-size:13px;font-weight:500;"><i class="ti ti-calendar" style="font-size:15px;vertical-align:-2px;"></i> {{ b["date"] }}</p>
+      </div>
+      <span class="badge" style="background:#FFF3E6;color:var(--warning);">{{ b["status"] }}</span>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:18px;">
+      <a href="/chat/{{ b['id'] }}" class="btn btn-ghost" style="flex:1;padding:10px;font-size:13px;"><i class="ti ti-message" style="vertical-align:-2px;"></i> Chat</a>
+      <a href="/track/{{ b['id'] }}" class="btn btn-ghost" style="flex:1;padding:10px;font-size:13px;"><i class="ti ti-map-pin" style="vertical-align:-2px;"></i> Track</a>
+      {% if not b["payment_method"] %}<a href="/payment/{{ b['id'] }}" class="btn" style="flex:1;padding:10px;font-size:13px;"><i class="ti ti-credit-card" style="vertical-align:-2px;"></i> Pay</a>{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="card" style="text-align:center;padding:60px;color:var(--muted);"><i class="ti ti-inbox" style="font-size:48px;"></i><p style="margin-top:14px;font-weight:600;">No bookings yet. Book a service from Home!</p></div>
+{% endif %}
+{% endblock %}

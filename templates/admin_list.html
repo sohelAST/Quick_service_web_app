@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="topbar"><div class="hello"><small><a href="/admin" style="color:var(--primary);font-weight:700;"><i class="ti ti-arrow-left" style="vertical-align:-2px;"></i> Dashboard</a></small><h1 style="text-transform:capitalize;">{{ what }}</h1></div></div>
+{% if rows %}
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px;">
+  {% for r in rows %}
+  <div class="card card-hover">
+    {% if what=='users' %}
+      <h4 style="font-size:16.5px;font-weight:800;">{{ r["name"] }}</h4>
+      <p style="color:var(--text-light);font-size:13px;margin-top:5px;font-weight:500;"><i class="ti ti-mail" style="font-size:15px;vertical-align:-2px;"></i> {{ r["email"] }}</p>
+      <p style="color:var(--text-light);font-size:13px;font-weight:500;"><i class="ti ti-phone" style="font-size:15px;vertical-align:-2px;"></i> {{ r["phone"] }}</p>
+    {% elif what=='workers' %}
+      <h4 style="font-size:16.5px;font-weight:800;">{{ r["name"] }} <span style="color:var(--primary);font-size:13px;">· {{ r["profession"] }}</span></h4>
+      <p style="color:var(--text-light);font-size:13px;margin-top:5px;font-weight:500;"><i class="ti ti-mail" style="font-size:15px;vertical-align:-2px;"></i> {{ r["email"] }}</p>
+      <p style="color:var(--text-light);font-size:13px;font-weight:500;"><i class="ti ti-phone" style="font-size:15px;vertical-align:-2px;"></i> {{ r["phone"] }}</p>
+    {% else %}
+      <div style="display:flex;justify-content:space-between;align-items:start;">
+        <div>
+          <h4 style="font-size:16.5px;font-weight:800;">{{ r["service"] }} <span style="color:var(--text-light);font-size:13px;font-weight:600;">৳{{ r["amount"] }}</span></h4>
+          <p style="color:var(--text-light);font-size:13px;margin-top:5px;font-weight:500;">{{ r["customer_name"] }} → {{ r["worker"] }}</p>
+          <p style="color:var(--text-light);font-size:13px;font-weight:500;"><i class="ti ti-map-pin" style="font-size:15px;vertical-align:-2px;"></i> {{ r["address"] }} · {{ r["date"] }}</p>
+          {% if r["payment_method"] %}<p style="color:var(--text-light);font-size:13px;font-weight:500;"><i class="ti ti-credit-card" style="font-size:15px;vertical-align:-2px;"></i> {{ r["payment_method"] }}{{ ' (Paid)' if r["paid"] else '' }}</p>{% endif %}
+        </div>
+        <span class="badge" style="background:var(--bg2);color:var(--primary);">{{ r["status"] }}</span>
+      </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="card" style="text-align:center;padding:50px;color:var(--muted);"><i class="ti ti-inbox" style="font-size:46px;"></i><p style="margin-top:12px;font-weight:600;">Nothing here yet.</p></div>
+{% endif %}
+{% endblock %}

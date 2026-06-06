@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="topbar"><div class="hello"><small><a href="/bookings" style="color:var(--primary);font-weight:700;"><i class="ti ti-arrow-left" style="vertical-align:-2px;"></i> Bookings</a></small><h1>Live Tracking 📍</h1></div></div>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<div style="display:grid;grid-template-columns:2fr 1fr;gap:20px;">
+  <div id="map" style="height:540px;width:100%;border-radius:var(--radius);box-shadow:var(--shadow);"></div>
+  <div class="card" style="height:fit-content;">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
+      <div style="width:56px;height:56px;background:var(--grad);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;box-shadow:0 6px 16px rgba(91,46,255,.3);"><i class="ti ti-user"></i></div>
+      <div><h4 style="font-size:16.5px;font-weight:800;">{{ wname }}</h4><p style="color:var(--text-light);font-size:13px;font-weight:500;">{{ booking["service"] }}</p></div>
+    </div>
+    <div class="badge" style="background:#E6F0FF;color:var(--secondary);margin-bottom:20px;"><i class="ti ti-car" style="vertical-align:-2px;"></i> On the way</div>
+    <a href="/chat/{{ booking['id'] }}" class="btn btn-block"><i class="ti ti-message" style="vertical-align:-2px;"></i> Chat with worker</a>
+  </div>
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  var wlat={{ wlat }}, wlng={{ wlng }};
+  var map = L.map('map').setView([wlat, wlng], 14);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
+  L.marker([wlat, wlng]).addTo(map).bindPopup('{{ wname }} is here').openPopup();
+</script>
+{% endblock %}

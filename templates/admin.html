@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="topbar"><div class="hello"><small>Admin Panel</small><h1>Dashboard 🛡️</h1></div></div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:32px;">
+  <div style="background:var(--grad);border-radius:var(--radius);padding:24px;color:#fff;box-shadow:var(--shadow);position:relative;overflow:hidden;">
+    <div style="position:absolute;right:-20px;top:-20px;width:90px;height:90px;background:rgba(255,255,255,.12);border-radius:50%;"></div>
+    <i class="ti ti-users" style="font-size:26px;opacity:.85;"></i>
+    <div style="font-size:32px;font-weight:800;margin-top:8px;">{{ n_users }}</div><div style="font-size:13px;opacity:.85;font-weight:600;">Customers</div></div>
+  <div class="card card-hover"><i class="ti ti-tools" style="font-size:26px;color:var(--secondary);"></i><div style="font-size:32px;font-weight:800;margin-top:8px;color:var(--secondary);">{{ n_workers }}</div><div style="font-size:13px;color:var(--text-light);font-weight:600;">Workers</div></div>
+  <div class="card card-hover"><i class="ti ti-clipboard-list" style="font-size:26px;color:var(--warning);"></i><div style="font-size:32px;font-weight:800;margin-top:8px;color:var(--warning);">{{ n_bookings }}</div><div style="font-size:13px;color:var(--text-light);font-weight:600;">Bookings</div></div>
+  <div class="card card-hover"><i class="ti ti-cash" style="font-size:26px;color:var(--success);"></i><div style="font-size:32px;font-weight:800;margin-top:8px;color:var(--success);">৳{{ earnings }}</div><div style="font-size:13px;color:var(--text-light);font-weight:600;">Earnings</div></div>
+</div>
+<div class="section-title">Manage</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+  {% for link,icon,label in [('users','ti-user','Manage Users'),('workers','ti-tools','Manage Workers'),('bookings','ti-clipboard-list','Manage Bookings')] %}
+  <a href="/admin/{{ link }}" class="card card-hover" style="display:flex;align-items:center;gap:16px;">
+    <div style="width:54px;height:54px;background:var(--bg2);border-radius:16px;display:flex;align-items:center;justify-content:center;"><i class="ti {{ icon }}" style="font-size:24px;color:var(--primary);"></i></div>
+    <span style="flex:1;font-weight:800;font-size:15px;">{{ label }}</span><i class="ti ti-chevron-right" style="color:var(--muted);font-size:22px;"></i>
+  </a>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="topbar"><div class="hello"><small><a href="javascript:history.back()" style="color:var(--primary);font-weight:700;"><i class="ti ti-arrow-left" style="vertical-align:-2px;"></i> Back</a></small><h1>{{ other }}</h1></div></div>
+<div style="max-width:700px;">
+  <div class="card" style="padding:0;overflow:hidden;">
+    <div style="background:var(--grad);color:#fff;padding:18px 22px;display:flex;align-items:center;gap:14px;">
+      <div style="width:44px;height:44px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;"><i class="ti ti-message-circle"></i></div>
+      <div><h4 style="font-size:16.5px;font-weight:800;">{{ other }}</h4><p style="opacity:.9;font-size:12px;">{{ booking["service"] }} · #{{ booking["id"] }}</p></div>
+    </div>
+    <div style="padding:22px;min-height:400px;max-height:500px;overflow-y:auto;background:var(--bg);" id="msgs">
+      {% for m in messages %}
+        {% set mine = m["sender_id"]==user["id"] %}
+        <div style="display:flex;justify-content:{{ 'flex-end' if mine else 'flex-start' }};margin-bottom:12px;">
+          <div style="max-width:70%;padding:12px 17px;border-radius:18px;font-size:14px;font-weight:500;
+               {% if mine %}background:var(--grad);color:#fff;border-bottom-right-radius:5px;box-shadow:0 4px 12px rgba(91,46,255,.25);
+               {% else %}background:#fff;border:1px solid var(--border);border-bottom-left-radius:5px;box-shadow:var(--shadow-sm);{% endif %}">
+            {{ m["message"] }}
+            <div style="font-size:10px;opacity:.7;margin-top:3px;text-align:right;">{{ m["ts"][11:16] }}</div>
+          </div>
+        </div>
+      {% else %}<p style="text-align:center;color:var(--muted);margin-top:50px;font-weight:600;">Say hello 👋</p>{% endfor %}
+    </div>
+    <form method="post" action="/chat/{{ booking['id'] }}" style="display:flex;gap:10px;padding:16px;border-top:1px solid var(--border);background:#fff;">
+      <input class="input" name="message" placeholder="Type a message..." autocomplete="off" required style="margin-bottom:0;border-radius:30px;">
+      <button class="btn" style="padding:0 24px;border-radius:30px;"><i class="ti ti-send"></i></button>
+    </form>
+  </div>
+</div>
+<script>
+  var m=document.getElementById('msgs'); if(m) m.scrollTop=m.scrollHeight;
+  setTimeout(function(){location.reload();}, 5000);
+</script>
+{% endblock %}
