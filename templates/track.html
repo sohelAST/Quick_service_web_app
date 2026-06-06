@@ -2,8 +2,8 @@
 {% block content %}
 <div class="topbar"><div class="hello"><small><a href="/bookings" style="color:var(--primary);font-weight:700;"><i class="ti ti-arrow-left" style="vertical-align:-2px;"></i> Bookings</a></small><h1>Live Tracking 📍</h1></div></div>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<div style="display:grid;grid-template-columns:2fr 1fr;gap:20px;">
-  <div id="map" style="height:540px;width:100%;border-radius:var(--radius);box-shadow:var(--shadow);"></div>
+<div class="grid grid-main">
+  <div id="map" class="track-map" style="width:100%;border-radius:var(--radius);box-shadow:var(--shadow);"></div>
   <div class="card" style="height:fit-content;">
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
       <div style="width:56px;height:56px;background:var(--grad);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;box-shadow:0 6px 16px rgba(91,46,255,.3);"><i class="ti ti-user"></i></div>

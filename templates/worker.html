@@ -3,7 +3,7 @@
 <div class="topbar">
   <div class="hello"><small>{{ user["profession"] }}</small><h1>Welcome, {{ user["name"] }} 👷</h1></div>
 </div>
-<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:30px;">
+<div class="grid grid-3" style="margin-bottom:30px;">
   <div style="background:var(--grad);border-radius:var(--radius);padding:24px;color:#fff;box-shadow:var(--shadow);position:relative;overflow:hidden;">
     <div style="position:absolute;right:-20px;top:-20px;width:90px;height:90px;background:rgba(255,255,255,.12);border-radius:50%;"></div>
     <i class="ti ti-briefcase" style="font-size:26px;opacity:.85;"></i>
@@ -20,7 +20,7 @@
   {% endfor %}
 </div>
 {% if jobs %}
-<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px;">
+<div class="grid grid-2">
   {% for j in jobs %}
   <div class="card card-hover">
     <div style="display:flex;justify-content:space-between;align-items:start;">

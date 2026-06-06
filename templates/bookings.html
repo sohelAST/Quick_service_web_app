@@ -2,7 +2,7 @@
 {% block content %}
 <div class="topbar"><div class="hello"><small>Your activity</small><h1>My Bookings 📋</h1></div></div>
 {% if bookings %}
-<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px;">
+<div class="grid grid-2">
   {% for b in bookings %}
   <div class="card card-hover">
     <div style="display:flex;justify-content:space-between;align-items:start;">

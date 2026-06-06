@@ -2,7 +2,7 @@
 {% block content %}
 <div class="topbar"><div class="hello"><small><a href="/admin" style="color:var(--primary);font-weight:700;"><i class="ti ti-arrow-left" style="vertical-align:-2px;"></i> Dashboard</a></small><h1 style="text-transform:capitalize;">{{ what }}</h1></div></div>
 {% if rows %}
-<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px;">
+<div class="grid grid-2">
   {% for r in rows %}
   <div class="card card-hover">
     {% if what=='users' %}
