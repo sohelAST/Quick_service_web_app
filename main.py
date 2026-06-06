@@ -308,8 +308,12 @@ def chat_page(request: Request, bid: int):
             t = str(ts)[11:16]
         msgs.append({"sender_id": r["sender_id"], "message": r["message"], "time": t})
     other = b["worker"] if u["role"] == "customer" else "Customer"
+    # Avatar initials + a friendly role line for the chat header
+    initials = "".join([w[0].upper() for w in other.split()[:2]]) or "?"
+    sub = b["service"] if u["role"] == "customer" else "Customer"
     return templates.TemplateResponse(request, "chat.html", {
-        "user": u, "booking": b, "messages": msgs, "other": other})
+        "user": u, "booking": b, "messages": msgs, "other": other,
+        "initials": initials, "sub": sub})
 
 @app.post("/chat/{bid}")
 def chat_send(request: Request, bid: int, message: str = Form(...)):
